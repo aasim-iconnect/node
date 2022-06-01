@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Post() {
   const navigate = useNavigate();
+  const [data, setData] = useState([]);
   const [cookies, setCookie, removeCookie] = useCookies([]);
   useEffect(() => {
     const verifyUser = async () => {
@@ -17,6 +18,7 @@ export default function Post() {
             { headers: { token: cookies["token"] } },
             { withCredentials: true }
           );
+          setData(data);
         } catch (error) {
           if (error.response.data === "invalid token") {
             removeCookie("token");
@@ -27,5 +29,14 @@ export default function Post() {
     };
     verifyUser();
   }, [cookies, navigate, removeCookie]);
-  return <div>Post</div>;
+  return (
+    <div>
+      <h1>Posts</h1>
+      <h2>
+        {data.posts?.map((e) => (
+          <p key={e.title}>{e.title}</p>
+        ))}
+      </h2>
+    </div>
+  );
 }
