@@ -7,6 +7,7 @@ export default function Post() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [cookies, setCookie, removeCookie] = useCookies([]);
+
   useEffect(() => {
     const verifyUser = async () => {
       if (!cookies["token"]) {
@@ -29,6 +30,12 @@ export default function Post() {
     };
     verifyUser();
   }, [cookies, navigate, removeCookie]);
+
+  const handleLogout = () => {
+    removeCookie("token");
+    navigate("/login");
+  };
+
   return (
     <div>
       <h1>Posts</h1>
@@ -37,6 +44,7 @@ export default function Post() {
           <p key={e.title}>{e.title}</p>
         ))}
       </h2>
+      <button onClick={handleLogout}>Log Out</button>
     </div>
   );
 }

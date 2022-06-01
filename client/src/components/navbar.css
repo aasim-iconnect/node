@@ -1,0 +1,12 @@
+.navbar {
+  background-color: aquamarine;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  padding: 20px;
+  font-size: x-large;
+}
+
+.navbar:hover {
+  color: aqua;
+}
