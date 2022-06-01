@@ -1,0 +1,11 @@
+/server/node_modules
+/server/.env
+/server/validation.js
+/client/node_modules
+/scracthes
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
