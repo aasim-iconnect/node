@@ -1,11 +1,9 @@
+# node modules
 /server/node_modules
-/server/.env
-/server/validation.js
 /client/node_modules
+
+#env files
+/server/.env
+
+#timepass files
 /scracthes
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
