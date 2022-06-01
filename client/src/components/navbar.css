@@ -5,6 +5,7 @@
   justify-content: center;
   padding: 20px;
   font-size: x-large;
+  text-decoration: none;
 }
 
 .navbar:hover {
