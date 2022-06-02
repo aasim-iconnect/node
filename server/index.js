@@ -1,17 +1,14 @@
 const express = require("express");
-const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-//cookies
 const cookieParser = require("cookie-parser");
-//import routes
-const authRoutes = require("./routes/auth");
-const postRoutes = require("./routes/post");
-//CORS
 const cors = require("cors");
+const authRoutes = require("./routes/authRoutes");
 
-dotenv.config();
+const app = express();
+
 //connect to DB
+dotenv.config();
 mongoose.connect(process.env.DB_url, () => console.log("connected to DB"));
 
 //Middleware
@@ -25,8 +22,6 @@ app.use(
   })
 );
 
-//Routes middleware
-app.use("/api/users", authRoutes);
-app.use("/api/posts", postRoutes);
-
-app.listen(4000, () => console.log("app running on port 400"));
+app.use("/", authRoutes);
+const port = 4000;
+app.listen(port, () => console.log(`app running on port ${port}`));
