@@ -15,7 +15,7 @@ export default function Register() {
   const login = () => {
     const loginData = { email: data.email, password: data.password };
     axios
-      .post("http://localhost:4000/api/users/login", loginData)
+      .post("http://localhost:4000/login", loginData)
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
   };

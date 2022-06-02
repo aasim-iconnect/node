@@ -15,7 +15,7 @@ export default function Post() {
       } else {
         try {
           const { data } = await axios.get(
-            "http://localhost:4000/api/posts",
+            "http://localhost:4000/posts",
             { headers: { token: cookies["token"] } },
             { withCredentials: true }
           );
