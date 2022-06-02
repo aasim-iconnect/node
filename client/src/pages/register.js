@@ -38,7 +38,7 @@ export default function Register() {
     };
     try {
       let data = axios
-        .post("http://localhost:4000/api/users/register", userData)
+        .post("http://localhost:4000/register", userData)
         .then((res) => {
           setSuccessMessage(res.data);
           login();
