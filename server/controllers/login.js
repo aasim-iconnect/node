@@ -1,5 +1,5 @@
 const User = require("../model/User");
-const { loginValidation } = require("../validation");
+const { loginValidation } = require("../middlewares/validation");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -17,7 +17,9 @@ module.exports.login = async (req, res) => {
   if (!validPass) return res.status(400).send("invalid password");
 
   //create and assign a token
-  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
+  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
+    expiresIn: "1m",
+  });
 
   res.cookie("token", token);
   res.json("cookies are set");
