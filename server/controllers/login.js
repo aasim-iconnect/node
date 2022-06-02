@@ -22,5 +22,5 @@ module.exports.login = async (req, res) => {
   });
 
   res.cookie("token", token);
-  res.json("cookies are set");
+  res.json(user);
 };

@@ -1,6 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { setLoggedIn, setUserDATA } from "../redux/UserSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { register, logins } from "../redux/Api";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -10,19 +13,26 @@ export default function Login() {
     email: "john@yahoo.com",
     password: "hellascacao",
   });
+  //redux
+  const dispatch = useDispatch();
+  const username = useSelector((state) => state.user.user.username);
+  const emailId = useSelector((state) => state.user.user.emailId);
+
   useEffect(() => {
     if (logined) navigate("/posts");
   }, [logined]);
 
   const login = async () => {
     const loginData = { email: data.email, password: data.password };
-    await axios
-      .post("http://localhost:4000/login", loginData, {
-        withCredentials: true,
+    const response = await logins(loginData);
+    setLogined(true);
+    dispatch(setLoggedIn());
+    dispatch(
+      setUserDATA({
+        name: response.name,
+        email: response.email,
       })
-      .then((response) => console.log(response))
-      .then((response) => setLogined(true))
-      .catch((err) => setErr(err.message));
+    );
   };
   const handleChange = (e) => {
     const value = e.target.value;
