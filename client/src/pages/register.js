@@ -19,6 +19,7 @@ export default function Register() {
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
   };
+
   const handleChange = (e) => {
     const value = e.target.value;
     setData({

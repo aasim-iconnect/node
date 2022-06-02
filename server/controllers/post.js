@@ -1,5 +1,3 @@
-const verify = require("../middlewares/verifyToken");
-
 module.exports.posts = (req, res) => {
   res.json({
     posts: [

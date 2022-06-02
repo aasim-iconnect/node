@@ -1,5 +1,5 @@
 const User = require("../model/User");
-const { registerValidation } = require("../validation");
+const { registerValidation } = require("../middlewares/validation");
 const bcrypt = require("bcryptjs");
 
 module.exports.register = async (req, res) => {
