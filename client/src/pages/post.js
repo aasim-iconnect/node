@@ -11,6 +11,7 @@ export default function Post() {
   const [data, setData] = useState([]);
   const [cookies, setCookie, removeCookie] = useCookies([]);
   const dispatch = useDispatch();
+  let header = { headers: { token: cookies["token"] } };
 
   useEffect(() => {
     const verifyUser = async () => {
@@ -31,7 +32,7 @@ export default function Post() {
         //     }
         //   }
         // }
-        let response = posts();
+        let response = posts(header);
         if (response === "invalid token") {
           removeCookie("token");
           navigate("/login");

@@ -30,7 +30,7 @@ export const posts = async (payload) => {
   try {
     const data = await axios.get(
       "http://localhost:4000/posts",
-      { headers: { token: cookies["token"] } },
+      { payload },
       { withCredentials: true }
     );
     return data;
