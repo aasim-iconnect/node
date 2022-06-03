@@ -19,7 +19,6 @@ export default function Login() {
   });
 
   //redux
-
   const success = useSelector((state) => state.user.success);
   const error = useSelector((state) => state.user.error);
   const loginData = { email: data.email, password: data.password };

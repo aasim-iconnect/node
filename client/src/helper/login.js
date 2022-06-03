@@ -1,3 +1,4 @@
+import { useDispatch } from "react-redux";
 import { logins } from "../redux/Api";
 import {
   setLoggedIn,
@@ -6,8 +7,9 @@ import {
   setErr,
 } from "../redux/UserSlice";
 
-const dispatch = useDispatch();
 export const login = async () => {
+  const dispatch = useDispatch();
+
   try {
     const response = await logins(payload);
     console.log("response", response);
