@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { register, logins } from "../redux/Api";
 import { useNavigate } from "react-router-dom";
 import {
   setLoggedIn,

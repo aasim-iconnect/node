@@ -8,6 +8,7 @@ import { posts } from "../redux/Api";
 export default function Post() {
   const username = useSelector((state) => state.user.user.username);
   const emailId = useSelector((state) => state.user.user.emailId);
+
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [cookies, setCookie, removeCookie] = useCookies([]);
