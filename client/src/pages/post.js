@@ -18,21 +18,7 @@ export default function Post() {
       if (!cookies["token"]) {
         navigate("/login");
       } else {
-        //   try {
-        //     const { data } = await axios.get(
-        //       "http://localhost:4000/posts",
-        //       { headers: { token: cookies["token"] } },
-        //       { withCredentials: true }
-        //     );
-        //     setData(data);
-        //   } catch (error) {
-        //     if (error.response.data === "invalid token") {
-        //       removeCookie("token");
-        //       navigate("/login");
-        //     }
-        //   }
-        // }
-        let response = posts(header);
+        let response = await posts(header);
         if (response === "invalid token") {
           removeCookie("token");
           navigate("/login");

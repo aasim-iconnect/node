@@ -3,15 +3,14 @@ import axios from "axios";
 export const register = (payload) => {
   let data = axios
     .post("http://localhost:4000/register", payload)
-    .then((res) => {
-      return res;
-    })
+    .then((res) => res.data)
     .catch((e) => {
       return {
         isError: true,
         error: e.response.data,
       };
     });
+  return data;
 };
 
 export const logins = (payload) => {
@@ -21,19 +20,21 @@ export const logins = (payload) => {
       withCredentials: true,
     })
     .then((response) => response.data)
-    .catch((err) => console.log(err));
-
+    .catch((e) => {
+      return {
+        isError: true,
+        error: e.response.data,
+      };
+    });
   return data;
 };
 
 export const posts = async (payload) => {
   try {
-    const data = await axios.get(
-      "http://localhost:4000/posts",
-      { payload },
-      { withCredentials: true }
-    );
-    return data;
+    const response = await axios.get("http://localhost:4000/posts", payload, {
+      withCredentials: true,
+    });
+    return response.data;
   } catch (e) {
     return e.response.data;
   }

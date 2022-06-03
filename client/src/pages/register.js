@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
 import Error from "../components/Error";
 import { register, logins } from "../redux/Api";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [data, setData] = useState({
@@ -12,10 +12,12 @@ export default function Register() {
   const [error, setError] = useState(false);
   const [errMessage, setErrMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   const login = async () => {
     const loginData = { email: data.email, password: data.password };
-    const data = await logins(loginData);
+    const x = await logins(loginData);
+    navigate("/posts");
   };
 
   const handleChange = (e) => {
@@ -27,7 +29,7 @@ export default function Register() {
     setErrMessage(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const userData = {
       name: data.name,
@@ -35,26 +37,16 @@ export default function Register() {
       password: data.password,
     };
     try {
-      // let data = axios
-      //   .post("http://localhost:4000/register", userData)
-      //   .then((res) => {
-      //     setSuccessMessage(res.data);
-      //     login();
-      //   })
-      //   .catch((e) => {
-      //     setErrMessage(e.response.data);
-      //     setError(true);
-      //   });
-      let x = register(userData);
+      let x = await register(userData);
       if (x.isError) {
         setErrMessage(x.error);
         setError(true);
       } else {
-        setSuccessMessage(x.data);
+        setSuccessMessage(x);
         login();
       }
     } catch (err) {
-      console.log("error", err.data.message);
+      console.log("error", err);
     }
   };
   return (

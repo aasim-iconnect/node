@@ -1,38 +1,38 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setLoggedIn, setUserDATA } from "../redux/UserSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { register, logins } from "../redux/Api";
+import { logins } from "../redux/Api";
 
 export default function Login() {
   const navigate = useNavigate();
+
   const [err, setErr] = useState("");
-  const [logined, setLogined] = useState(false);
+  const [sucessMessage, setSuccessMessage] = useState("");
+
   const [data, setData] = useState({
-    email: "john@yahoo.com",
-    password: "hellascacao",
+    email: "",
+    password: "",
   });
   //redux
   const dispatch = useDispatch();
   const username = useSelector((state) => state.user.user.username);
   const emailId = useSelector((state) => state.user.user.emailId);
 
-  useEffect(() => {
-    if (logined) navigate("/posts");
-  }, [logined]);
-
   const login = async () => {
     const loginData = { email: data.email, password: data.password };
-    const response = await logins(loginData);
-    setLogined(true);
-    dispatch(setLoggedIn());
-    dispatch(
-      setUserDATA({
-        name: response.name,
-        email: response.email,
-      })
-    );
+    try {
+      const response = await logins(loginData);
+      if (response.isError) {
+        setErr(response.error);
+      } else {
+        setSuccessMessage(response);
+        login();
+        navigate("/posts");
+      }
+    } catch (err) {
+      console.log("error", err);
+    }
   };
   const handleChange = (e) => {
     const value = e.target.value;
