@@ -9,10 +9,11 @@ export default function Login() {
 
   const [err, setErr] = useState("");
   const [sucessMessage, setSuccessMessage] = useState("");
+  const [logined, setLogined] = useState(false);
 
   const [data, setData] = useState({
-    email: "",
-    password: "",
+    email: "asimshaikh1993@gmail.com",
+    password: "123456789",
   });
   //redux
   const dispatch = useDispatch();
@@ -27,13 +28,13 @@ export default function Login() {
         setErr(response.error);
       } else {
         setSuccessMessage(response);
-        login();
         navigate("/posts");
       }
     } catch (err) {
       console.log("error", err);
     }
   };
+
   const handleChange = (e) => {
     const value = e.target.value;
     setData({
@@ -46,6 +47,7 @@ export default function Login() {
     e.preventDefault();
     login();
   };
+
   return (
     <>
       <div className="p-40 bg-blue-100">
