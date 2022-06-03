@@ -35,7 +35,6 @@ export default function Post() {
     removeCookie("token");
     navigate("/login");
     dispatch(setLoggedIn());
-    // dispatch(setUserDATA());
   };
 
   return (

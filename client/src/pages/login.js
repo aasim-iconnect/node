@@ -8,6 +8,7 @@ import {
   setSuccess,
   setErr,
 } from "../redux/UserSlice";
+import { login } from "../helper/login";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -18,28 +19,10 @@ export default function Login() {
   });
 
   //redux
-  const dispatch = useDispatch();
+
   const success = useSelector((state) => state.user.success);
   const error = useSelector((state) => state.user.error);
-
-  const login = async () => {
-    const loginData = { email: data.email, password: data.password };
-    try {
-      const response = await logins(loginData);
-      console.log("response", response);
-      if (response.isError) {
-        setErr(response.error);
-        dispatch(setErr(response.error));
-      } else {
-        dispatch(setLoggedIn());
-        dispatch(setErr(" "));
-        dispatch(setUserDATA(response.data));
-        navigate("/posts");
-      }
-    } catch (err) {
-      console.log("error", err.message);
-    }
-  };
+  const loginData = { email: data.email, password: data.password };
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -51,7 +34,7 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login();
+    login(loginData);
   };
 
   return (
@@ -89,5 +72,3 @@ export default function Login() {
     </>
   );
 }
-
-export { logins };

@@ -30,15 +30,6 @@ export default function Register() {
     setErr(false);
   };
 
-  const login = async () => {
-    const loginData = { email: data.email, password: data.password };
-    const x = await logins(loginData);
-    console.log(x);
-    dispatch(setErr(" "));
-    dispatch(setData(x));
-    navigate("/posts");
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userData = {
@@ -46,22 +37,8 @@ export default function Register() {
       email: data.email,
       password: data.password,
     };
-    try {
-      let x = await register(userData);
-      console.log(x);
-      if (x.isError) {
-        console.log(x.error);
-        dispatch(setErr(x.error));
-      } else {
-        login();
-        dispatch(setLoggedIn());
-        dispatch(setSuccess(x.data));
-        dispatch(setErr(" "));
-      }
-    } catch (err) {
-      console.log("error", err);
-    }
   };
+
   return (
     <>
       <div>

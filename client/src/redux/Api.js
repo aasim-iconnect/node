@@ -19,9 +19,8 @@ export const register = (payload) => {
 };
 
 export const logins = (payload) => {
-  const loginData = payload;
   let data = axios
-    .post("http://localhost:4000/login", loginData, {
+    .post("http://localhost:4000/login", payload, {
       withCredentials: true,
     })
     .then((response) => {
