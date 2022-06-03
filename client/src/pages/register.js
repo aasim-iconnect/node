@@ -1,24 +1,25 @@
-import React, { useState } from "react";
-import Error from "../components/Error";
+import { useState } from "react";
 import { register, logins } from "../redux/Api";
 import { useNavigate } from "react-router-dom";
+import {
+  setLoggedIn,
+  setUserDATA,
+  setSuccess,
+  setErr,
+} from "../redux/UserSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Register() {
+  const dispatch = useDispatch();
   const [data, setData] = useState({
     name: "",
     email: "",
     password: "",
   });
-  const [error, setError] = useState(false);
-  const [errMessage, setErrMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
-  const navigate = useNavigate();
 
-  const login = async () => {
-    const loginData = { email: data.email, password: data.password };
-    const x = await logins(loginData);
-    navigate("/posts");
-  };
+  const navigate = useNavigate();
+  const success = useSelector((state) => state.user.success);
+  const error = useSelector((state) => state.user.error);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -26,7 +27,16 @@ export default function Register() {
       ...data,
       [e.target.name]: value,
     });
-    setErrMessage(false);
+    setErr(false);
+  };
+
+  const login = async () => {
+    const loginData = { email: data.email, password: data.password };
+    const x = await logins(loginData);
+    console.log(x);
+    dispatch(setErr(" "));
+    dispatch(setData(x));
+    navigate("/posts");
   };
 
   const handleSubmit = async (e) => {
@@ -38,12 +48,15 @@ export default function Register() {
     };
     try {
       let x = await register(userData);
+      console.log(x);
       if (x.isError) {
-        setErrMessage(x.error);
-        setError(true);
+        console.log(x.error);
+        dispatch(setErr(x.error));
       } else {
-        setSuccessMessage(x);
         login();
+        dispatch(setLoggedIn());
+        dispatch(setSuccess(x.data));
+        dispatch(setErr(" "));
       }
     } catch (err) {
       console.log("error", err);
@@ -82,8 +95,7 @@ export default function Register() {
           </div>
           <button>Submit</button>
         </form>
-        <Error errMessage={errMessage}></Error>
-        {successMessage}
+        <p>{error}</p>
       </div>
     </>
   );

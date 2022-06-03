@@ -1,37 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { setLoggedIn, setUserDATA } from "../redux/UserSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { logins } from "../redux/Api";
+import {
+  setLoggedIn,
+  setUserDATA,
+  setSuccess,
+  setErr,
+} from "../redux/UserSlice";
 
 export default function Login() {
   const navigate = useNavigate();
-
-  const [err, setErr] = useState("");
-  const [sucessMessage, setSuccessMessage] = useState("");
-  const [logined, setLogined] = useState(false);
 
   const [data, setData] = useState({
     email: "asimshaikh1993@gmail.com",
     password: "123456789",
   });
+
   //redux
   const dispatch = useDispatch();
-  const username = useSelector((state) => state.user.user.username);
-  const emailId = useSelector((state) => state.user.user.emailId);
+  const success = useSelector((state) => state.user.success);
+  const error = useSelector((state) => state.user.error);
 
   const login = async () => {
     const loginData = { email: data.email, password: data.password };
     try {
       const response = await logins(loginData);
+      console.log("response", response);
       if (response.isError) {
         setErr(response.error);
+        dispatch(setErr(response.error));
       } else {
-        setSuccessMessage(response);
+        dispatch(setLoggedIn());
+        dispatch(setErr(" "));
+        dispatch(setUserDATA(response.data));
         navigate("/posts");
       }
     } catch (err) {
-      console.log("error", err);
+      console.log("error", err.message);
     }
   };
 
@@ -77,9 +83,11 @@ export default function Login() {
               Submit
             </button>
           </form>
-          <h3 className="p-3">{err}</h3>
+          <h3 className="p-3">{error}</h3>
         </div>
       </div>
     </>
   );
 }
+
+export { logins };

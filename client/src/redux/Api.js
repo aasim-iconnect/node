@@ -3,7 +3,12 @@ import axios from "axios";
 export const register = (payload) => {
   let data = axios
     .post("http://localhost:4000/register", payload)
-    .then((res) => res.data)
+    .then((response) => {
+      return {
+        isData: true,
+        data: response.data,
+      };
+    })
     .catch((e) => {
       return {
         isError: true,
@@ -19,7 +24,12 @@ export const logins = (payload) => {
     .post("http://localhost:4000/login", loginData, {
       withCredentials: true,
     })
-    .then((response) => response.data)
+    .then((response) => {
+      return {
+        isData: true,
+        data: response.data,
+      };
+    })
     .catch((e) => {
       return {
         isError: true,

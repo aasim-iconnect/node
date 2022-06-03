@@ -8,6 +8,8 @@ const initialState = {
     username: "",
     emailId: "",
   },
+  success: "",
+  error: "",
 };
 
 export const userSlice = createSlice({
@@ -15,14 +17,21 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setLoggedIn(state) {
-      state.auth.isLoggedIn = true;
+      state.auth.isLoggedIn = !state.auth.isLoggedIn;
     },
     setUserDATA(state, action) {
       state.user.username = action.payload.name;
       state.user.emailId = action.payload.email;
     },
+    setSuccess(state, action) {
+      state.success = action.payload;
+    },
+    setErr(state, action) {
+      state.error = action.payload;
+    },
   },
 });
 
-export const { setLoggedIn, setUserDATA } = userSlice.actions;
+export const { setLoggedIn, setUserDATA, setSuccess, setErr } =
+  userSlice.actions;
 export default userSlice.reducer;
