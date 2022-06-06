@@ -1,7 +1,7 @@
-const { register } = require("../controllers/register");
-const { login } = require("../controllers/login");
-const { posts } = require("../controllers/post");
-const { verifyToken } = require("../middlewares/verifyToken");
+const {register} = require("../controllers/register");
+const {login} = require("../controllers/login");
+const {posts} = require("../controllers/post");
+const {verifyToken} = require("../middlewares/verifyToken");
 const router = require("express").Router();
 
 router.post("/register", register);

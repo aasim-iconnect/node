@@ -8,5 +8,6 @@
 ### function of app
 
 1. click posts page it wont allow you unless you have cookie
-2. if click register you can register new id and it will automatically log you in and create a cookie and redirect to posts page and cookie will reverify.
+2. if click register you can register new id and it will automatically log you in and create a cookie and redirect to
+   posts page and cookie will reverify.
 3. if cookie is modify it will throw you to login screen.

@@ -15,11 +15,11 @@ mongoose.connect(process.env.DB_url, () => console.log("connected to DB"));
 app.use(cookieParser());
 app.use(express.json());
 app.use(
-  cors({
-    origin: ["http://localhost:3000"],
-    methods: ["GET", "POST"],
-    credentials: true,
-  })
+    cors({
+        origin: ["http://localhost:3000"],
+        methods: ["GET", "POST"],
+        credentials: true,
+    })
 );
 
 app.use("/", authRoutes);
