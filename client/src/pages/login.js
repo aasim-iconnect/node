@@ -28,7 +28,7 @@ export default function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    const loginData = {email: data.email, password: data.password};
+        const loginData = {email: data.email, password: data.password};
         const response = await logins(loginData)
         if (response.isData) {
             navigate("/posts")
@@ -46,7 +46,7 @@ export default function Login() {
                         <div>
                             <label className="p-2">E-mail</label>
                             <input
-                                className="bg-slate-200 p-3 m-2"
+                                className="bg-slate-200 w-500 p-3 m-2"
                                 type="email"
                                 value={data.email}
                                 name="email"
@@ -56,7 +56,7 @@ export default function Login() {
                         <div>
                             <label className="p-2">Password</label>
                             <input
-                                className="bg-slate-200 p-3 m-2"
+                                className="shadow appearance-none border border-red-500 rounded w-300 py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                                 name="password"
                                 type="password"
                                 value={data.password}

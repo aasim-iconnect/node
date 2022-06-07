@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const register = (payload) => {
-    let registerData = axios
+    return axios
         .post("http://localhost:4000/register", payload)
         .then((response) => {
             return {
@@ -15,11 +15,10 @@ export const register = (payload) => {
                 error: e.response.data,
             };
         });
-    return registerData;
 };
 
 export const logins = (payload) => {
-    let postData = axios
+    return axios
         .post("http://localhost:4000/login", payload, {
             withCredentials: true,
         })
@@ -35,7 +34,6 @@ export const logins = (payload) => {
                 error: e.response.data,
             };
         });
-    return postData;
 };
 
 export const posts = async (payload) => {
