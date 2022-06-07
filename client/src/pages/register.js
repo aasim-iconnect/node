@@ -1,19 +1,16 @@
 import {useState} from "react";
-import {setErr, setSuccess, setUserDATA,} from "../redux/UserSlice";
-import {useDispatch, useSelector} from "react-redux";
-import {logins, register} from "../redux/Api";
+import {register} from "../redux/Api";
 
 export default function Register() {
-    const dispatch = useDispatch();
-
+    //input data
     const [data, setData] = useState({
         name: "",
         email: "",
         password: "",
     });
-
-    const error = useSelector((state) => state.user.error);
-    const success = useSelector((state) => state.user.success);
+    //redux
+    const [success, setSuccess] = useState("")
+    const [error, setError] = useState("")
 
     const handleChange = (e) => {
         const value = e.target.value;
@@ -23,22 +20,21 @@ export default function Register() {
         });
     };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const userData = {
-      name: data.name,
-      email: data.email,
-      password: data.password,
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const userData = {
+            name: data.name,
+            email: data.email,
+            password: data.password,
+        };
+        const registerData = await register(userData)
+        if (registerData.isData) {
+            setSuccess("User register successfully")
+        } else {
+            setError(registerData.error)
+        }
+        console.log("register", registerData)
     };
-      const registerData = await register(userData)
-      if (registerData.isData) {
-          dispatch(setErr(" "))
-          dispatch(setSuccess("User register successfully"))
-      } else {
-          dispatch(setErr(registerData.error))
-      }
-      console.log("register", registerData)
-  };
 
     return (
         <>

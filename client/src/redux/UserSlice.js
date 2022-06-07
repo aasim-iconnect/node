@@ -23,15 +23,8 @@ export const userSlice = createSlice({
             state.user.username = action.payload.name;
             state.user.emailId = action.payload.email;
         },
-        setSuccess(state, action) {
-            state.success = action.payload;
-        },
-        setErr(state, action) {
-            state.error = action.payload;
-        },
     },
 });
 
-export const {setLoggedIn, setUserDATA, setSuccess, setErr} =
-    userSlice.actions;
+export const {setLoggedIn, setUserDATA} = userSlice.actions;
 export default userSlice.reducer;

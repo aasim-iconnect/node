@@ -2,24 +2,25 @@ import React, {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {setErr, setLoggedIn, setUserDATA} from "../redux/UserSlice";
+import {setLoggedIn, setUserDATA} from "../redux/UserSlice";
 import {posts} from "../redux/Api";
 
 export default function Post() {
+    //redux
     const username = useSelector((state) => state.user.user.username);
     const emailId = useSelector((state) => state.user.user.emailId);
-
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    //input data
     const [data, setData] = useState([]);
     const [cookies, setCookie, removeCookie] = useCookies([]);
-    const dispatch = useDispatch();
-    let header = {headers: {token: cookies["token"]}};
 
     useEffect(() => {
         const verifyUser = async () => {
             if (!cookies["token"]) {
                 navigate("/login");
             } else {
+                let header = {headers: {token: cookies["token"]}};
                 let response = await posts(header);
                 if (response === "invalid token") {
                     removeCookie("token");
@@ -36,7 +37,6 @@ export default function Post() {
         removeCookie("token");
         navigate("/login");
         dispatch(setLoggedIn());
-        dispatch(setErr(" "))
         dispatch(setUserDATA(" "))
     };
 

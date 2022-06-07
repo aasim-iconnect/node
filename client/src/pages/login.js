@@ -1,21 +1,22 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {logins} from "../redux/Api";
-import {setErr, setSuccess, setUserDATA,} from "../redux/UserSlice";
+import {setUserDATA} from "../redux/UserSlice";
 
 export default function Login() {
+    //redux
     const navigate = useNavigate();
     const dispatch = useDispatch()
 
+    //success and error state
+    const [error, setError] = useState("")
+
+    // input data
     const [data, setData] = useState({
         email: "asimshaikh1993@gmail.com",
         password: "123456789",
     });
-
-    //redux
-    const error = useSelector((state) => state.user.error);
-    const loginData = {email: data.email, password: data.password};
 
     const handleChange = (e) => {
         const value = e.target.value;
@@ -27,16 +28,14 @@ export default function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+    const loginData = {email: data.email, password: data.password};
         const response = await logins(loginData)
         if (response.isData) {
             navigate("/posts")
-            dispatch(setErr(" "))
             dispatch(setUserDATA(response.data))
-            dispatch(setSuccess("User login successfully"))
         } else {
-            dispatch(setErr(response.error))
+            setError(response.error)
         }
-        console.log("login", response)
     };
 
     return (
